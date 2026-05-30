@@ -1,0 +1,22 @@
+---
+description: Project overview and implementation guidance for the Fidelity Account Order extension
+alwaysApply: true
+---
+
+# Fidelity Account Order Extension
+
+This project is a Chrome Manifest V3 extension that lets users customize the display order of accounts on the Fidelity portfolio page.
+
+## Purpose
+
+- Detect account rows from the Fidelity portfolio account selector.
+- Let the user reorder detected accounts from the extension popup.
+- Save the preferred order with `chrome.storage.sync`.
+- Reapply the saved order on Fidelity pages while leaving new or unmatched accounts visible after ordered accounts.
+
+## Architecture
+
+- `manifest.json` defines the extension metadata, permissions, popup, host permissions, and content script registration.
+- `content.js` runs on Fidelity pages, detects account DOM nodes, normalizes account labels into stable ids, observes page mutations, and applies the saved account order.
+- `popup.html`, `popup.css`, and `popup.js` define the extension popup UI for detecting, reordering, saving, and resetting account order.
+
