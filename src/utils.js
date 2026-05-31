@@ -1,3 +1,5 @@
+const STORAGE_KEY = "accountOrder";
+
 const normalizeText = (value) => String(value || "").replace(/\s+/g, " ").trim();
 
 const getAccountId = (label) => {

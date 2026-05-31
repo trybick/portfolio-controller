@@ -1,5 +1,3 @@
-const STORAGE_KEY = "accountOrder";
-
 const accountListElement = document.getElementById("account-list");
 const saveButton = document.getElementById("save-button");
 const resetButton = document.getElementById("reset-button");
