@@ -24,7 +24,7 @@
   "content_scripts": [
     {
       "matches": ["https://fidelity.com/*", "https://*.fidelity.com/*"],
-      "js": ["src/utils.js", "src/fidelity-dom.js", "src/content.js"],
+      "js": ["src/utils.js", "src/dom-selectors.js", "src/content.js"],
       "run_at": "document_start"
     }
   ]

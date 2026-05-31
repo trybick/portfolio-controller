@@ -21,7 +21,7 @@ The saved order is stored in `chrome.storage.sync`. New or unmatched account gro
 
 ## Fidelity selectors
 
-The extension targets specific Fidelity portfolio markup. If Fidelity changes the page markup and account detection breaks, update the selectors in `src/fidelity-dom.js`.
+The extension targets specific Fidelity portfolio markup. If Fidelity changes the page markup and account detection breaks, update the selectors in `src/dom-selectors.js`.
 
 ## License
 

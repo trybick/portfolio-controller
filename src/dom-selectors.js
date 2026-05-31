@@ -1,6 +1,6 @@
-// Single source of truth for Fidelity's page selectors. Update here if their
+// Single source of truth for the page selectors. Update here if their
 // markup changes and account detection breaks.
-const FIDELITY_SELECTORS = {
+const DOM_SELECTORS = {
   accountList: ".acct-selector__acct-list",
   accountGroup: ".acct-selector__group",
   accountGroupLabel: [
@@ -9,10 +9,10 @@ const FIDELITY_SELECTORS = {
   ]
 };
 
-const getAccountListElement = () => document.querySelector(FIDELITY_SELECTORS.accountList);
+const getAccountListElement = () => document.querySelector(DOM_SELECTORS.accountList);
 
 const getAccountLabel = (element) => {
-  const selectors = [...FIDELITY_SELECTORS.accountGroupLabel, "button", "a"];
+  const selectors = [...DOM_SELECTORS.accountGroupLabel, "button", "a"];
 
   for (const selector of selectors) {
     const match = element.querySelector(selector);
@@ -28,14 +28,14 @@ const getAccountLabel = (element) => {
 
 const getAccountCollection = (list) => {
   const directAccounts = Array.from(list.children).filter((element) => {
-    return element.matches?.(FIDELITY_SELECTORS.accountGroup);
+    return element.matches?.(DOM_SELECTORS.accountGroup);
   });
 
   if (directAccounts.length) {
     return { container: list, elements: directAccounts };
   }
 
-  const nestedAccounts = Array.from(list.querySelectorAll(FIDELITY_SELECTORS.accountGroup));
+  const nestedAccounts = Array.from(list.querySelectorAll(DOM_SELECTORS.accountGroup));
   const nestedParent = nestedAccounts[0]?.parentElement;
 
   if (nestedParent && nestedAccounts.every((element) => element.parentElement === nestedParent)) {
