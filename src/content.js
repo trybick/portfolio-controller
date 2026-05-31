@@ -1,11 +1,5 @@
 (() => {
   const STORAGE_KEY = "accountOrder";
-  const LIST_SELECTOR = ".acct-selector__acct-list";
-  const ACCOUNT_GROUP_SELECTOR = ".acct-selector__group";
-  const ACCOUNT_GROUP_LABEL_SELECTORS = [
-    ".acct-selector__group-name",
-    "[data-testid='ap143528-accounts-selector-group-title']"
-  ];
   const ACCOUNT_ID_ATTRIBUTE = "data-fidelity-account-order-id";
   const ORIGINAL_INDEX_ATTRIBUTE = "data-fidelity-account-order-original-index";
   const MAX_PRIORITY = Number.MAX_SAFE_INTEGER;
@@ -14,65 +8,6 @@
   let applyTimer = 0;
   let isApplying = false;
   let originalIndexCounter = 0;
-
-  const normalizeText = (value) => String(value || "").replace(/\s+/g, " ").trim();
-
-  const getAccountLabel = (element) => {
-    const selectors = [
-      ...ACCOUNT_GROUP_LABEL_SELECTORS,
-      "button",
-      "a"
-    ];
-
-    for (const selector of selectors) {
-      const match = element.querySelector(selector);
-      const text = match ? normalizeText(match.textContent || "") : "";
-
-      if (text) {
-        return text;
-      }
-    }
-
-    return normalizeText(element.textContent || "");
-  };
-
-  const getAccountId = (label) => {
-    return normalizeText(label)
-      .toLowerCase()
-      .replace(/\$\s?-?[\d,]+(\.\d{2})?/g, "")
-      .replace(/\b-?[\d,]+(\.\d{2})\b/g, "")
-      .replace(/\b(today|total|balance|available|positions|activity)\b/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-  };
-
-  const normalizeOrder = (order) => {
-    if (!Array.isArray(order)) {
-      return [];
-    }
-
-    return order
-      .map((account) => {
-        if (typeof account === "string") {
-          const label = normalizeText(account);
-          const id = getAccountId(label);
-
-          return id ? { id, label } : null;
-        }
-
-        const label = normalizeText(account?.label || "");
-        const id = normalizeText(account?.id || getAccountId(label));
-
-        return id && label ? { id, label } : null;
-      })
-      .filter(Boolean);
-  };
-
-  const getOrderSignature = (order) => {
-    return normalizeOrder(order)
-      .map((account) => account.id)
-      .join("|");
-  };
 
   const pruneSavedOrder = (order, accounts) => {
     const normalizedOrder = normalizeOrder(order);
@@ -100,37 +35,8 @@
     return savedOrder;
   };
 
-  const getAccountContainer = (list, elements) => {
-    const sharedParent = elements[0]?.parentElement;
-
-    if (sharedParent && elements.every((element) => element.parentElement === sharedParent)) {
-      return sharedParent;
-    }
-
-    return list;
-  };
-
-  const getAccountCollection = (list) => {
-    const directAccounts = Array.from(list.children).filter((element) => {
-      return element.matches?.(ACCOUNT_GROUP_SELECTOR);
-    });
-
-    if (directAccounts.length) {
-      return { container: list, elements: directAccounts };
-    }
-
-    const nestedAccounts = Array.from(list.querySelectorAll(ACCOUNT_GROUP_SELECTOR));
-    const nestedParent = nestedAccounts[0]?.parentElement;
-
-    if (nestedParent && nestedAccounts.every((element) => element.parentElement === nestedParent)) {
-      return { container: nestedParent, elements: nestedAccounts };
-    }
-
-    return { container: list, elements: nestedAccounts };
-  };
-
   const getDetectedAccountCollection = () => {
-    const list = document.querySelector(LIST_SELECTOR);
+    const list = getAccountListElement();
 
     if (!list) {
       return { container: null, accounts: [] };
@@ -165,6 +71,26 @@
     return getDetectedAccountCollection().accounts;
   };
 
+  const reorderElements = (container, sortedAccounts) => {
+    const nextSignature = sortedAccounts.map((account) => account.id).join("|");
+    const currentSignature = [...sortedAccounts]
+      .sort((left, right) => left.index - right.index)
+      .map((account) => account.id)
+      .join("|");
+
+    if (currentSignature === nextSignature) {
+      return { applied: true, count: sortedAccounts.length };
+    }
+
+    isApplying = true;
+    sortedAccounts.forEach((account) => container.appendChild(account.element));
+    window.requestAnimationFrame(() => {
+      isApplying = false;
+    });
+
+    return { applied: true, count: sortedAccounts.length };
+  };
+
   const applyOrder = (order = savedOrder) => {
     const { container, accounts } = getDetectedAccountCollection();
 
@@ -193,20 +119,7 @@
       return left.index - right.index;
     });
 
-    const currentSignature = accounts.map((account) => account.id).join("|");
-    const nextSignature = sortedAccounts.map((account) => account.id).join("|");
-
-    if (currentSignature === nextSignature) {
-      return { applied: true, count: accounts.length };
-    }
-
-    isApplying = true;
-    sortedAccounts.forEach((account) => container.appendChild(account.element));
-    window.requestAnimationFrame(() => {
-      isApplying = false;
-    });
-
-    return { applied: true, count: accounts.length };
+    return reorderElements(container, sortedAccounts);
   };
 
   const restoreOriginalOrder = () => {
@@ -233,20 +146,7 @@
       return left.index - right.index;
     });
 
-    const currentSignature = accounts.map((account) => account.id).join("|");
-    const nextSignature = sortedAccounts.map((account) => account.id).join("|");
-
-    if (currentSignature === nextSignature) {
-      return { applied: true, count: accounts.length };
-    }
-
-    isApplying = true;
-    sortedAccounts.forEach((account) => container.appendChild(account.element));
-    window.requestAnimationFrame(() => {
-      isApplying = false;
-    });
-
-    return { applied: true, count: accounts.length };
+    return reorderElements(container, sortedAccounts);
   };
 
   const scheduleApplyOrder = () => {

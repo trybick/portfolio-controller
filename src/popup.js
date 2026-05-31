@@ -15,40 +15,16 @@ let savedOrder = [];
 let isBusy = false;
 let isFidelityPage = false;
 
-const normalizeAccount = (account) => {
-  const id = String(account?.id || "").trim();
-  const label = String(account?.label || "").trim();
-
-  return id && label ? { id, label } : null;
-};
-
-const normalizeOrder = (order) => {
-  if (!Array.isArray(order)) {
-    return [];
-  }
-
-  return order.map(normalizeAccount).filter(Boolean);
-};
-
-const getOrderSignature = (order) => {
-  return normalizeOrder(order)
-    .map((account) => account.id)
-    .join("|");
-};
-
 const hasUnsavedChanges = () => {
   return getOrderSignature(accountOrder) !== getOrderSignature(savedOrder);
 };
 
-const updateButtonStates = () => {
+const syncUI = () => {
   const canSave = accountOrder.length > 0 && hasUnsavedChanges();
 
   saveButton.disabled = isBusy || !canSave;
-  saveButton.textContent = "Apply";
   resetButton.disabled = isBusy;
-};
 
-const updateControlsVisibility = () => {
   const shouldShow = isFidelityPage && accountOrder.length > 0;
 
   headerActions.classList.toggle("hidden", !shouldShow);
@@ -57,7 +33,7 @@ const updateControlsVisibility = () => {
 
 const setBusy = (busyState) => {
   isBusy = busyState;
-  updateButtonStates();
+  syncUI();
 };
 
 const moveAccount = (fromIndex, toIndex) => {
@@ -151,8 +127,7 @@ const createMoveButton = (index, direction) => {
 const renderAccounts = () => {
   accountListElement.replaceChildren();
   emptyMessage.classList.toggle("hidden", accountOrder.length > 0);
-  updateButtonStates();
-  updateControlsVisibility();
+  syncUI();
 
   accountOrder.forEach((account, index) => {
     const item = document.createElement("li");
@@ -268,6 +243,7 @@ const refreshDetectedAccounts = async () => {
 
   await pruneSavedOrder(detectedAccounts);
   accountOrder = mergeDetectedAccounts(detectedAccounts);
+  savedOrder = normalizeOrder(accountOrder);
   renderAccounts();
 
   return detectedAccounts.length;
@@ -338,7 +314,7 @@ const updateFidelityPageState = async () => {
     isFidelityPage = false;
   }
 
-  updateControlsVisibility();
+  syncUI();
 };
 
 const loadSavedOrder = async () => {
