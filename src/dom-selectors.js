@@ -1,5 +1,6 @@
-// Single source of truth for the page selectors. Update here if their
-// markup changes and account detection breaks.
+// This file isolates everything that depends on Fidelity's page markup: the CSS
+// selectors plus related helpers.
+
 const DOM_SELECTORS = {
   accountList: ".acct-selector__acct-list",
   accountGroup: ".acct-selector__group",

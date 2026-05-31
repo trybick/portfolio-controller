@@ -1,28 +1,66 @@
-# Fidelity Account Group Order
+# Reorder Fidelity Accounts Extension
 
-A Chrome extension that lets users manually reorder account groups in the Fidelity portfolio account selector.
+Do you wish your Fidelity accounts showed up in a different order? This free Chrome
+extension lets you drag your account groups into the order you want, and keeps them
+that way every time you visit your Fidelity portfolio.
 
-## Install locally
+It only changes how things *look* in your own browser. It never touches your money,
+your login, or anything on Fidelity's side.
 
-1. Open `chrome://extensions`.
-2. Turn on Developer mode.
-3. Click Load unpacked.
-4. Select this folder: `fidelity-account-order-extension`.
+## What you need
 
-## Use
+- A computer running the **Google Chrome** web browser.
+- A **Fidelity** account that you log into on the web.
 
-1. Open the Fidelity portfolio page.
-2. Click the extension icon.
-3. Click Detect groups.
-4. Drag account groups or use Up/Dn.
-5. Click Save & apply.
+## Step 1: Add the extension to Chrome
 
-The saved order is stored in `chrome.storage.sync`. New or unmatched account groups stay visible and are appended after the manually ordered groups.
+1. Download this project to your computer. If you got it as a ZIP file, unzip it so
+   you have a regular folder.
+2. Open Chrome and, in the address bar at the top, type `chrome://extensions` and
+   press Enter.
+3. In the top-right corner of that page, turn on the **Developer mode** switch.
+4. A few new buttons will appear. Click **Load unpacked**.
+5. Find and select the folder named `fidelity-account-order-extension` (the folder
+   you unzipped in step 1), then click **Select**.
 
-## Fidelity selectors
+That's it. You should now see "Fidelity Account Group Order" in your list of
+extensions.
 
-The extension targets specific Fidelity portfolio markup. If Fidelity changes the page markup and account detection breaks, update the selectors in `src/dom-selectors.js`.
+> Tip: Click the little puzzle-piece icon near the top-right of Chrome and pin the
+> extension so its icon is always easy to find.
+
+## Step 2: Put your accounts in the order you like
+
+1. Go to your Fidelity portfolio page and log in as usual.
+2. Click the extension's icon in the Chrome toolbar. A small window will pop up.
+3. Click **Detect groups**. The extension reads the account groups currently shown
+   on the page and lists them in the pop-up.
+4. Rearrange them however you like:
+   - **Drag and drop** a group up or down, or
+   - Use the **Up** and **Dn** buttons next to each group.
+5. Click **Save & apply**.
+
+Your accounts will now appear in your chosen order. Chrome remembers your order, so
+it stays the same the next time you open Fidelity.
+
+## Good to know
+
+- **Your settings follow you.** If you're signed into Chrome on more than one
+  computer, your saved order syncs across them automatically.
+- **New accounts won't get lost.** If you open a new account later, it simply shows
+  up after the groups you've already arranged. You can re-detect and reorder anytime.
+- **Nothing leaves your browser.** The extension doesn't send your information
+  anywhere. It only rearranges what's displayed on your screen.
+
+## If something isn't working
+
+- Make sure you're on the Fidelity portfolio page before clicking **Detect groups**.
+- If no groups appear, refresh the Fidelity page and try **Detect groups** again.
+- Fidelity occasionally updates the design of their website. When that happens, the
+  extension may stop recognizing your accounts. If you're comfortable editing code
+  (or know someone who is), the part that finds the accounts lives in
+  `src/dom-selectors.js` and can be updated.
 
 ## License
 
-[MIT](LICENSE)
+This project is free and open source under the [MIT](LICENSE) license.

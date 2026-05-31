@@ -1,3 +1,8 @@
+// This file drives the extension popup UI (popup.html). It renders the detected
+// account groups as a draggable, reorderable list, tracks unsaved changes, and
+// persists the chosen order to chrome.storage. It talks to the content script
+// (content.js) via messages to detect accounts, apply a new order, or reset to
+// the original order.
 const accountListElement = document.getElementById("account-list");
 const saveButton = document.getElementById("save-button");
 const resetButton = document.getElementById("reset-button");

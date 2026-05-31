@@ -1,3 +1,8 @@
+// This file is the content script injected into Fidelity pages. It detects the
+// account groups in the page (via dom-selectors.js helpers), applies the saved
+// order by reordering DOM elements, and watches for page mutations to reapply it.
+// It loads the saved order from chrome.storage and responds to messages from the
+// popup (popup.js) to detect, apply, or clear the account order.
 (() => {
   const ACCOUNT_ID_ATTRIBUTE = "data-fidelity-account-order-id";
   const ORIGINAL_INDEX_ATTRIBUTE = "data-fidelity-account-order-original-index";
