@@ -18,6 +18,24 @@ your login, or anything on Fidelity's side.
 
 ## Step 1: Add the extension to Chrome
 
+The easiest way to install is straight from the Chrome Web Store:
+
+1. Open the extension's Chrome Web Store page: **[Download link coming soon](https://chromewebstore.google.com/PLACEHOLDER)**.
+2. Click **Add to Chrome**.
+3. In the confirmation box that appears, click **Add extension**.
+
+That's it. You should now see "Portfolio Account Sorter" in your list of
+extensions.
+
+> Tip: Click the little puzzle-piece icon near the top-right of Chrome and pin the
+> extension so its icon is always easy to find.
+
+### Advanced: install manually from the source code
+
+If you'd rather load the extension from the source files (for example, to try the
+latest changes before they reach the store), you can install it as an unpacked
+extension instead:
+
 1. Download this project to your computer. If you got it as a ZIP file, unzip it so
    you have a regular folder.
 2. Open Chrome and, in the address bar at the top, type `chrome://extensions` and
@@ -26,12 +44,6 @@ your login, or anything on Fidelity's side.
 4. A few new buttons will appear. Click **Load unpacked**.
 5. Find and select the folder named `fidelity-account-order-extension` (the folder
    you unzipped in step 1), then click **Select**.
-
-That's it. You should now see "Portfolio Account Sorter" in your list of
-extensions.
-
-> Tip: Click the little puzzle-piece icon near the top-right of Chrome and pin the
-> extension so its icon is always easy to find.
 
 ## Step 2: Put your accounts in the order you like
 
