@@ -5,7 +5,7 @@ extension lets you drag your account groups into the order you want, and keeps t
 that way every time you visit your Fidelity portfolio.
 
 <p align="center">
-  <img src="screenshot01.png" alt="Portfolio Controller popup with reorderable account groups" width="358">
+  <img src="screenshots/screenshot-store.png" alt="Portfolio Controller popup with reorderable account groups" width="358">
 </p>
 
 > **Not affiliated with Fidelity.** This is an independent, unofficial extension. It
