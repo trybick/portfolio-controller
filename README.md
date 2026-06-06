@@ -1,4 +1,4 @@
-# Portfolio Account Sorter
+# Portfolio Controller
 
 Do you wish your Fidelity accounts showed up in a different order? This free Chrome
 extension lets you drag your account groups into the order you want, and keeps them
@@ -24,7 +24,7 @@ The easiest way to install is straight from the Chrome Web Store:
 2. Click **Add to Chrome**.
 3. In the confirmation box that appears, click **Add extension**.
 
-That's it. You should now see "Portfolio Account Sorter" in your list of
+That's it. You should now see "Portfolio Controller" in your list of
 extensions.
 
 > Tip: Click the little puzzle-piece icon near the top-right of Chrome and pin the
@@ -42,7 +42,7 @@ extension instead:
    press Enter.
 3. In the top-right corner of that page, turn on the **Developer mode** switch.
 4. A few new buttons will appear. Click **Load unpacked**.
-5. Find and select the folder named `fidelity-account-order-extension` (the folder
+5. Find and select the folder named `portfolio-controller` (the folder
    you unzipped in step 1), then click **Select**.
 
 ## Step 2: Put your accounts in the order you like

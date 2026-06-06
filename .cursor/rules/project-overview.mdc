@@ -1,9 +1,9 @@
 ---
-description: Project overview and implementation guidance for the Fidelity Account Order extension
+description: Project overview and implementation guidance for Portfolio Controller
 alwaysApply: true
 ---
 
-# Fidelity Account Order Extension
+# Portfolio Controller
 
 This project is a Chrome Manifest V3 extension that lets users customize the display order of accounts on the Fidelity portfolio page.
 

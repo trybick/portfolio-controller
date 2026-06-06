@@ -1,4 +1,5 @@
 {
+  "name": "portfolio-controller",
   "private": true,
   "license": "MIT",
   "scripts": {

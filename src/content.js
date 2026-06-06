@@ -7,8 +7,8 @@
  */
 
 (() => {
-  const ACCOUNT_ID_ATTRIBUTE = "data-fidelity-account-order-id";
-  const ORIGINAL_INDEX_ATTRIBUTE = "data-fidelity-account-order-original-index";
+  const ACCOUNT_ID_ATTRIBUTE = "data-portfolio-controller-account-id";
+  const ORIGINAL_INDEX_ATTRIBUTE = "data-portfolio-controller-original-index";
   const MAX_PRIORITY = Number.MAX_SAFE_INTEGER;
 
   let savedOrder = [];
